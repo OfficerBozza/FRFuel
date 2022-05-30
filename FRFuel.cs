@@ -411,7 +411,7 @@ namespace FRFuel
 #endif
                 if (vehicle.Speed < 0.1f)
                 {
-                    ControlEngine(vehicle);
+                    // ControlEngine(vehicle);
                 }
 
                 if (vehicle.IsEngineRunning)
@@ -422,26 +422,7 @@ namespace FRFuel
                 {
                     hud.InstructRefuelOrTurnOnEngine();
 
-                    if (refuelAllowed)
-                    {
-                        if (Game.IsControlPressed(0, Control.Jump))
-                        {
-                            if (fuel < fuelTankCapacity)
-                            {
-                                float fuelPortion = 0.1f * refuelRate;
 
-                                fuel += fuelPortion;
-                                addedFuelCapacitor += fuelPortion;
-                            }
-                        }
-
-                        if (Game.IsControlJustReleased(0, Control.Jump) && addedFuelCapacitor > 0f)
-                        {
-                            TriggerEvent("frfuel:fuelAdded", addedFuelCapacitor);
-                            TriggerServerEvent("frfuel:fuelAdded", addedFuelCapacitor);
-                            addedFuelCapacitor = 0f;
-                        }
-                    }
                 }
 
                 hud.RenderInstructions();
@@ -467,33 +448,7 @@ namespace FRFuel
         /// Controls engine
         /// </summary>
         /// <param name="vehicle"></param>
-        public void ControlEngine(Vehicle vehicle)
-        {
-            // Prevent the player from honking the horn whenever trying to toggle the engine.
-            if (engineToggleControl == Control.VehicleHorn)
-            {
-                Game.DisableControlThisFrame(0, Control.VehicleHorn);
 
-                // Also disable the rocket boost control for DLC cars.
-                Game.DisableControlThisFrame(0, (Control)351); // INPUT_VEH_ROCKET_BOOST (E on keyboard, L3 on controller)
-            }
-
-            if (Game.IsControlJustReleased(0, engineToggleControl) && !Game.IsControlPressed(0, Control.Jump))
-            {
-                if (vehicle.IsEngineRunning)
-                {
-                    vehicle.IsDriveable = false;
-                    //vehicle.IsEngineRunning = false;
-                    API.SetVehicleEngineOn(vehicle.Handle, false, true, true); // temporary fix for when the engine keeps turning back on.
-                }
-                else
-                {
-                    vehicle.IsDriveable = true;
-                    // FIXME: No neat default behaviour in 1103 :c
-                    vehicle.IsEngineRunning = true;
-                }
-            }
-        }
 
 
         /// <summary>
@@ -692,7 +647,7 @@ namespace FRFuel
         {
             if (hudActive == false)
             {
-                Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1);
+                // Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1);
             }
         }
 
