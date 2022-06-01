@@ -1,3 +1,5 @@
+## This version of FRFuel has been modified to have the in-car refuelling features removed, for use with https://tox-scripts.tebex.io/package/4829274
+
 # FRFuel
 
 [![Build status](https://ci.appveyor.com/api/projects/status/vupxr6p40fgncl4w?svg=true)](https://ci.appveyor.com/project/thers/frfuel)
